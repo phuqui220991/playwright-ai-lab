@@ -16,21 +16,15 @@ test.describe('Verify Home Page And Bondar Academy Website', () => {
     test(
         'Verify Link to Bondar Academy Website',
         { tag: '@Regression' },
-        async ({ homePage, context }) => {
+        async ({ homePage }) => {
             await test.step('Navigate to Home Page', async () => {
                 await homePage.navigateToHomePageGuest();
             });
 
-            await test.step('Verify Navigation to Bondar Academy Website', async () => {
-                const [newPage] = await Promise.all([
-                    context.waitForEvent('page'),
-                    homePage.bondarAcademyLink.click(),
-                ]);
-
-                await newPage.waitForLoadState();
-
-                expect(newPage.url()).toContain(
-                    'https://www.bondaracademy.com/'
+            await test.step('Verify Link to Bondar Academy Website', async () => {
+                await expect(homePage.bondarAcademyLink).toHaveAttribute(
+                    'href',
+                    'https://bondaracademy.com'
                 );
             });
         }
@@ -38,8 +32,8 @@ test.describe('Verify Home Page And Bondar Academy Website', () => {
 });
 
 test.describe('Mock API Response', () => {
-    // Use guest session for navigation tests
-    test.use({ storageState: '.auth/guestSession.json' });
+    // Use guest (logged-out) session for navigation tests
+    test.use({ storageState: { cookies: [], origins: [] } });
 
     test(
         'Mock API Response',

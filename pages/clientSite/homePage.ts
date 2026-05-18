@@ -10,7 +10,7 @@ export class HomePage {
     constructor(private page: Page) {}
 
     get homeBanner(): Locator {
-        return this.page.getByRole('link', { name: 'conduit' });
+        return this.page.getByRole('navigation').getByRole('link', { name: 'conduit' });
     }
     get yourFeedBtn(): Locator {
         return this.page.getByText('Your Feed');
@@ -20,7 +20,8 @@ export class HomePage {
     }
     get bondarAcademyLink(): Locator {
         return this.page.getByRole('link', {
-            name: 'www.bondaracademy.com',
+            name: 'Bondar Academy',
+            exact: true,
         });
     }
     get noArticlesMessage(): Locator {
