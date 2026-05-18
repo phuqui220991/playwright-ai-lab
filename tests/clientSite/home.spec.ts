@@ -3,7 +3,7 @@ import articleData from '../../test-data/articleData.json';
 
 test.describe('Verify Home Page And Bondar Academy Website', () => {
     // Use guest session for navigation tests
-    test.use({ storageState: '.auth/guestSession.json' });
+    test.use({ storageState: '.auth/userSession.json' });
 
     test(
         'Verify Successful Loading of Home Page',

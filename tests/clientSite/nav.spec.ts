@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/pom/test-options';
 
 test.describe('Verify Home Page', () => {
     // Use guest session for navigation tests
-    test.use({ storageState: '.auth/guestSession.json' });
+    test.use({ storageState: '.auth/userSession.json' });
 
     test.beforeEach(async ({ homePage }) => {
         await homePage.navigateToHomePageGuest();
