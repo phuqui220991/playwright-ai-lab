@@ -5,7 +5,8 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/playwright/.auth/
+.auth/
 
 # Environment files
-.env.*
+env/.env.*
+!env/.env.example
