@@ -19,10 +19,6 @@ permissions:
     pages: write
     id-token: write
 
-concurrency:
-    group: 'pages'
-    cancel-in-progress: false
-
 jobs:
     setup-and-smoke-test:
         name: Setup and Smoke Test
@@ -156,7 +152,6 @@ jobs:
 
     build-report:
         name: Build Report
-        if: always()
         needs: merge-report
         runs-on: ubuntu-latest
         steps:
@@ -174,13 +169,15 @@ jobs:
               with:
                   path: ./_site
 
-    depoloy-report:
+    deploy-report:
         name: Deploy Report
-        if: always()
         needs: build-report
+        concurrency:
+            group: 'pages'
+            cancel-in-progress: false
         environment:
             name: github-pages
-            url: 'https://idavidov13.github.io/Playwright-Framework/'
+            url: 'https://phuqui220991.github.io/playwright-ai-lab/'
         runs-on: ubuntu-latest
         steps:
             - name: Deploy to GitHub Pages
