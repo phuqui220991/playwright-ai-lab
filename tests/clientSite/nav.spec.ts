@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/pom/test-options';
+import { test } from '../../fixtures/pom/test-options';
 
 test.describe('Verify Home Page', () => {
     // Use guest (logged-out) session for navigation tests
@@ -17,7 +17,9 @@ test.describe('Verify Home Page', () => {
                 const password = process.env['PASSWORD'];
 
                 if (!email || !password) {
-                    throw new Error('EMAIL and PASSWORD environment variables are required');
+                    throw new Error(
+                        'EMAIL and PASSWORD environment variables are required',
+                    );
                 }
 
                 await navPage.logIn(email, password);
@@ -26,7 +28,7 @@ test.describe('Verify Home Page', () => {
             await test.step('Perform Log Out', async () => {
                 await navPage.logOut();
             });
-        }
+        },
     );
 
     test(
@@ -48,6 +50,6 @@ test.describe('Verify Home Page', () => {
             await test.step('Navigate to Home Page by Home Link', async () => {
                 await navPage.navigateToHomePage();
             });
-        }
+        },
     );
 });

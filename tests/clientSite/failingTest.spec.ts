@@ -1,4 +1,4 @@
-import { test, expect } from '../../fixtures/pom/test-options';
+import { test } from '../../fixtures/pom/test-options';
 
 test('Failing Sanity Test', { tag: '@Sanity' }, async ({ homePage }) => {
     await homePage.navigateToHomePageUser();
@@ -10,7 +10,11 @@ test('Failing API Test', { tag: '@Api' }, async ({ homePage }) => {
     // expect(2).toEqual(3);
 });
 
-test('Failing Regression Test', { tag: '@Regression' }, async ({ homePage }) => {
-    await homePage.navigateToHomePageUser();
-    // expect(2).toEqual(3);
-});
+test(
+    'Failing Regression Test',
+    { tag: '@Regression' },
+    async ({ homePage }) => {
+        await homePage.navigateToHomePageUser();
+        // expect(2).toEqual(3);
+    },
+);
