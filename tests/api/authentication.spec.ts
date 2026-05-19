@@ -2,6 +2,7 @@ import { ErrorResponseSchema } from '../../fixtures/api/schemas';
 import { ErrorResponse } from '../../fixtures/api/types-guards';
 import { test, expect } from '../../fixtures/pom/test-options';
 import invalidCredentials from '../../test-data/invalidCredentials.json';
+import { HTTP_METHOD } from '@utils/constants';
 
 test.describe('Verify API Validation for Log In / Sign Up', () => {
     test(
@@ -9,7 +10,7 @@ test.describe('Verify API Validation for Log In / Sign Up', () => {
         { tag: '@Api' },
         async ({ apiRequest }) => {
             const { status, body } = await apiRequest<ErrorResponse>({
-                method: 'POST',
+                method: HTTP_METHOD.POST,
                 url: 'api/users/login',
                 baseUrl: process.env['API_URL'],
                 body: {
@@ -22,7 +23,7 @@ test.describe('Verify API Validation for Log In / Sign Up', () => {
 
             expect(status).toBe(403);
             expect(ErrorResponseSchema.parse(body)).toBeTruthy();
-        }
+        },
     );
 
     test(
@@ -32,7 +33,7 @@ test.describe('Verify API Validation for Log In / Sign Up', () => {
             await test.step('Verify API Validation for Invalid Email', async () => {
                 for (const invalidEmail of invalidCredentials.invalidEmails) {
                     const { status, body } = await apiRequest<ErrorResponse>({
-                        method: 'POST',
+                        method: HTTP_METHOD.POST,
                         url: 'api/users',
                         baseUrl: process.env['API_URL'],
                         body: {
@@ -52,7 +53,7 @@ test.describe('Verify API Validation for Log In / Sign Up', () => {
             await test.step('Verify API Validation for Invalid Password', async () => {
                 for (const invalidPassword of invalidCredentials.invalidPasswords) {
                     const { status, body } = await apiRequest<ErrorResponse>({
-                        method: 'POST',
+                        method: HTTP_METHOD.POST,
                         url: 'api/users',
                         baseUrl: process.env['API_URL'],
                         body: {
@@ -72,7 +73,7 @@ test.describe('Verify API Validation for Log In / Sign Up', () => {
             await test.step('Verify API Validation for Invalid Email', async () => {
                 for (const invalidUsername of invalidCredentials.invalidUsernames) {
                     const { status, body } = await apiRequest<ErrorResponse>({
-                        method: 'POST',
+                        method: HTTP_METHOD.POST,
                         url: 'api/users',
                         baseUrl: process.env['API_URL'],
                         body: {
@@ -88,6 +89,6 @@ test.describe('Verify API Validation for Log In / Sign Up', () => {
                     expect(ErrorResponseSchema.parse(body)).toBeTruthy();
                 }
             });
-        }
+        },
     );
 });

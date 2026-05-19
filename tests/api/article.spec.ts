@@ -2,6 +2,7 @@ import { ArticleResponseSchema } from '../../fixtures/api/schemas';
 import { ArticleResponse } from '../../fixtures/api/types-guards';
 import { test, expect } from '../../fixtures/pom/test-options';
 import articleData from '../../test-data/articleData.json';
+import { HTTP_METHOD } from '@utils/constants';
 
 test.describe('Verify CRUD for Article', () => {
     test(
@@ -12,7 +13,7 @@ test.describe('Verify CRUD for Article', () => {
 
             await test.step('Verify Create an Article', async () => {
                 const { status, body } = await apiRequest<ArticleResponse>({
-                    method: 'POST',
+                    method: HTTP_METHOD.POST,
                     url: 'api/articles/',
                     baseUrl: process.env['API_URL'],
                     body: articleData.create,
@@ -25,7 +26,7 @@ test.describe('Verify CRUD for Article', () => {
 
             await test.step('Verify Read an Article', async () => {
                 const { status, body } = await apiRequest<ArticleResponse>({
-                    method: 'GET',
+                    method: HTTP_METHOD.GET,
                     url: `api/articles/${articleId}`,
                     baseUrl: process.env['API_URL'],
                 });
@@ -36,7 +37,7 @@ test.describe('Verify CRUD for Article', () => {
 
             await test.step('Verify Update an Article', async () => {
                 const { status, body } = await apiRequest<ArticleResponse>({
-                    method: 'PUT',
+                    method: HTTP_METHOD.PUT,
                     url: `api/articles/${articleId}`,
                     baseUrl: process.env['API_URL'],
                     body: articleData.update,
@@ -46,14 +47,14 @@ test.describe('Verify CRUD for Article', () => {
                 expect(status).toBe(200);
                 expect(ArticleResponseSchema.parse(body)).toBeTruthy();
                 expect(body.article.title).toBe(
-                    articleData.update.article.title
+                    articleData.update.article.title,
                 );
                 articleId = body.article.slug;
             });
 
             await test.step('Verify Read an Article', async () => {
                 const { status, body } = await apiRequest<ArticleResponse>({
-                    method: 'GET',
+                    method: HTTP_METHOD.GET,
                     url: `api/articles/${articleId}`,
                     baseUrl: process.env['API_URL'],
                 });
@@ -61,13 +62,13 @@ test.describe('Verify CRUD for Article', () => {
                 expect(status).toBe(200);
                 expect(ArticleResponseSchema.parse(body)).toBeTruthy();
                 expect(body.article.title).toBe(
-                    articleData.update.article.title
+                    articleData.update.article.title,
                 );
             });
 
             await test.step('Verify Delete an Article', async () => {
                 const { status } = await apiRequest({
-                    method: 'DELETE',
+                    method: HTTP_METHOD.DELETE,
                     url: `api/articles/${articleId}`,
                     baseUrl: process.env['API_URL'],
                     headers: process.env['ACCESS_TOKEN'],
@@ -78,13 +79,13 @@ test.describe('Verify CRUD for Article', () => {
 
             await test.step('Verify the Article is deleted', async () => {
                 const { status } = await apiRequest({
-                    method: 'GET',
+                    method: HTTP_METHOD.GET,
                     url: `api/articles/${articleId}`,
                     baseUrl: process.env['API_URL'],
                 });
 
                 expect(status).toBe(404);
             });
-        }
+        },
     );
 });

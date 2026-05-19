@@ -1,4 +1,5 @@
 import type { APIRequestContext, APIResponse } from '@playwright/test';
+import { HTTP_METHOD, type HttpMethod } from '@utils/constants';
 
 /**
  * Simplified helper for making API requests and returning the status and JSON body.
@@ -24,7 +25,7 @@ export async function apiRequest({
     headers,
 }: {
     request: APIRequestContext;
-    method: 'POST' | 'GET' | 'PUT' | 'DELETE';
+    method: HttpMethod;
     url: string;
     baseUrl?: string;
     body?: Record<string, unknown> | null;
@@ -51,16 +52,16 @@ export async function apiRequest({
     const fullUrl = baseUrl ? `${baseUrl}${url}` : url;
 
     switch (method.toUpperCase()) {
-        case 'POST':
+        case HTTP_METHOD.POST:
             response = await request.post(fullUrl, options);
             break;
-        case 'GET':
+        case HTTP_METHOD.GET:
             response = await request.get(fullUrl, options);
             break;
-        case 'PUT':
+        case HTTP_METHOD.PUT:
             response = await request.put(fullUrl, options);
             break;
-        case 'DELETE':
+        case HTTP_METHOD.DELETE:
             response = await request.delete(fullUrl, options);
             break;
         default:
@@ -80,7 +81,7 @@ export async function apiRequest({
         }
     } catch (err) {
         console.warn(
-            `Failed to parse response body for status ${status}: ${err}`
+            `Failed to parse response body for status ${status}: ${err}`,
         );
     }
 

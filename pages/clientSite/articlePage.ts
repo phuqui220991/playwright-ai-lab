@@ -1,4 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
+import { HTTP_METHOD } from '@utils/constants';
 
 /**
  * This is the page object for Article Page functionality.
@@ -57,7 +58,7 @@ export class ArticlePage {
         await this.page.waitForResponse(
             (response) =>
                 response.url().includes('/api/articles/') &&
-                response.request().method() === 'GET'
+                response.request().method() === HTTP_METHOD.GET,
         );
     }
 
@@ -73,7 +74,7 @@ export class ArticlePage {
         title: string,
         description: string,
         body: string,
-        tags?: string
+        tags?: string,
     ): Promise<void> {
         await this.articleTitleInput.fill(title);
         await this.articleDescriptionInput.fill(description);
@@ -88,11 +89,11 @@ export class ArticlePage {
         await this.page.waitForResponse(
             (response) =>
                 response.url().includes('/api/articles/') &&
-                response.request().method() === 'GET'
+                response.request().method() === HTTP_METHOD.GET,
         );
 
         await expect(
-            this.page.getByRole('heading', { name: title })
+            this.page.getByRole('heading', { name: title }),
         ).toBeVisible();
     }
 
@@ -108,7 +109,7 @@ export class ArticlePage {
         title: string,
         description: string,
         body: string,
-        tags?: string
+        tags?: string,
     ): Promise<void> {
         await this.articleTitleInput.fill(title);
         await this.articleDescriptionInput.fill(description);
@@ -123,11 +124,11 @@ export class ArticlePage {
         await this.page.waitForResponse(
             (response) =>
                 response.url().includes('/api/articles/') &&
-                response.request().method() === 'GET'
+                response.request().method() === HTTP_METHOD.GET,
         );
 
         await expect(
-            this.page.getByRole('heading', { name: title })
+            this.page.getByRole('heading', { name: title }),
         ).toBeVisible();
     }
 

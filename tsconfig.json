@@ -1,45 +1,46 @@
 {
-  "compilerOptions": {
-    /* Language & runtime */
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "lib": ["ES2022", "DOM"],
-    "types": ["node", "playwright"],
+    "compilerOptions": {
+        /* Language & runtime */
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "lib": ["ES2022", "DOM"],
+        "types": ["node", "playwright"],
 
-    /* Interop & resolution */
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "skipLibCheck": true,
+        /* Interop & resolution */
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "skipLibCheck": true,
 
-    /* Type-checking — strict suite */
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "alwaysStrict": true,
-    "useUnknownInCatchVariables": true,
+        /* Type-checking — strict suite */
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "alwaysStrict": true,
+        "useUnknownInCatchVariables": true,
 
-    /* Type-checking — extras */
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "noFallthroughCasesInSwitch": true,
-    "noPropertyAccessFromIndexSignature": true,
+        /* Type-checking — extras */
+        "noImplicitReturns": true,
+        "noImplicitOverride": true,
+        "noFallthroughCasesInSwitch": true,
+        "noPropertyAccessFromIndexSignature": true,
 
-    /* Test-only project — never emit */
-    "noEmit": true,
+        /* Test-only project — never emit */
+        "noEmit": true,
 
-    /* Path aliases (resolved relative to this tsconfig.json) */
-    "paths": {
-      "@pages/*": ["./pages/*"],
-      "@fixtures/*": ["./fixtures/*"],
-      "@test-data/*": ["./test-data/*"]
-    }
-  },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "playwright-report", "test-results", ".auth"]
+        /* Path aliases (resolved relative to this tsconfig.json) */
+        "paths": {
+            "@pages/*": ["./pages/*"],
+            "@fixtures/*": ["./fixtures/*"],
+            "@test-data/*": ["./test-data/*"],
+            "@utils/*": ["./utils/*"]
+        }
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "playwright-report", "test-results", ".auth"]
 }

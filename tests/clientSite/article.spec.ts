@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures/pom/test-options';
 import { faker } from '@faker-js/faker';
+import { HTTP_METHOD } from '@utils/constants';
 
 test.describe('Verify Publish/Edit/Delete an Article', () => {
     const randomArticleTitle = faker.lorem.words(3);
@@ -14,7 +15,7 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
 
     test.afterAll(async ({ apiRequest }) => {
         await apiRequest({
-            method: 'DELETE',
+            method: HTTP_METHOD.DELETE,
             url: `api/articles/${articleId}`,
             baseUrl: process.env['API_URL'],
             headers: process.env['ACCESS_TOKEN'],
@@ -32,7 +33,7 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
                     (res) =>
                         res.url() ===
                             `${process.env['API_URL']}api/articles/` &&
-                        res.request().method() === 'POST',
+                        res.request().method() === HTTP_METHOD.POST,
                 );
 
                 await articlePage.publishArticle(

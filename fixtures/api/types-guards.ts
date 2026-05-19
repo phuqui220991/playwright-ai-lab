@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { HttpMethod } from '@utils/constants';
 import type {
     UserSchema,
     ErrorResponseSchema,
@@ -8,14 +9,14 @@ import type {
 /**
  * Parameters for making an API request.
  * @typedef {Object} ApiRequestParams
- * @property {'POST' | 'GET' | 'PUT' | 'DELETE'} method - The HTTP method to use.
+ * @property {HttpMethod} method - The HTTP method to use.
  * @property {string} url - The endpoint URL for the request.
  * @property {string} [baseUrl] - The base URL to prepend to the endpoint.
  * @property {Record<string, unknown> | null} [body] - The request payload, if applicable.
  * @property {string} [headers] - Additional headers for the request.
  */
 export type ApiRequestParams = {
-    method: 'POST' | 'GET' | 'PUT' | 'DELETE';
+    method: HttpMethod;
     url: string;
     baseUrl?: string;
     body?: Record<string, unknown> | null;
@@ -36,7 +37,7 @@ export type ApiRequestResponse<T = unknown> = {
 
 // define the function signature as a type
 export type ApiRequestFn = <T = unknown>(
-    params: ApiRequestParams
+    params: ApiRequestParams,
 ) => Promise<ApiRequestResponse<T>>;
 
 // grouping them all together

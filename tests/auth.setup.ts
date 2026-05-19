@@ -1,11 +1,12 @@
 import { test as setup, expect } from '@fixtures/pom/test-options';
 import { User } from '@fixtures/api/types-guards';
 import { UserSchema } from '@fixtures/api/schemas';
+import { HTTP_METHOD } from '@utils/constants';
 
 setup('auth user', async ({ apiRequest, homePage, navPage, page }) => {
     await setup.step('auth for user by API', async () => {
         const { status, body } = await apiRequest<User>({
-            method: 'POST',
+            method: HTTP_METHOD.POST,
             url: 'api/users/login',
             baseUrl: process.env['API_URL'],
             body: {
