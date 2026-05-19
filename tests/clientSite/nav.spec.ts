@@ -13,14 +13,8 @@ test.describe('Verify Home Page', () => {
         { tag: '@Smoke' },
         async ({ navPage }) => {
             await test.step('Perform Log In', async () => {
-                const email = process.env['EMAIL'];
-                const password = process.env['PASSWORD'];
-
-                if (!email || !password) {
-                    throw new Error(
-                        'EMAIL and PASSWORD environment variables are required',
-                    );
-                }
+                const email: string = process.env['EMAIL'] ?? '';
+                const password: string = process.env['PASSWORD'] ?? '';
 
                 await navPage.logIn(email, password);
             });

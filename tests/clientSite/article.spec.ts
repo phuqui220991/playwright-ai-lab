@@ -12,6 +12,15 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
         await homePage.navigateToHomePageUser();
     });
 
+    test.afterAll(async ({ apiRequest }) => {
+        await apiRequest({
+            method: 'DELETE',
+            url: `api/articles/${articleId}`,
+            baseUrl: process.env['API_URL'],
+            headers: process.env['ACCESS_TOKEN'],
+        });
+    });
+
     test(
         'Verify Publish/Edit/Delete an Article',
         { tag: '@Sanity' },
@@ -23,48 +32,37 @@ test.describe('Verify Publish/Edit/Delete an Article', () => {
                     (res) =>
                         res.url() ===
                             `${process.env['API_URL']}api/articles/` &&
-                        res.request().method() === 'POST'
+                        res.request().method() === 'POST',
                 );
 
                 await articlePage.publishArticle(
                     randomArticleTitle,
                     randomArticleDescription,
                     randomArticleBody,
-                    randomArticleTag
+                    randomArticleTag,
                 );
 
-                const responseBody = await (
-                    await postResponsePromise
-                ).json();
+                const responseBody = await (await postResponsePromise).json();
                 articleId = responseBody.article.slug;
             });
-      
+
             await test.step('Verify Edit an Article', async () => {
                 await articlePage.navigateToEditArticlePage();
 
                 await expect(articlePage.articleTitleInput).toHaveValue(
-                    randomArticleTitle
+                    randomArticleTitle,
                 );
 
                 await articlePage.editArticle(
                     `Updated ${randomArticleTitle}`,
                     `Updated ${randomArticleDescription}`,
-                    `Updated ${randomArticleBody}`
+                    `Updated ${randomArticleBody}`,
                 );
             });
 
             await test.step('Verify Delete an Article', async () => {
                 await articlePage.deleteArticle();
             });
-        }
+        },
     );
-
-    test.afterAll(async ({ apiRequest }) => {
-        await apiRequest({
-            method: 'DELETE',
-            url: `api/articles/${articleId}`,
-            baseUrl: process.env['API_URL'],
-            headers: process.env['ACCESS_TOKEN'],
-        });
-    });
 });
